@@ -1,8 +1,11 @@
 <resources>
-    <declare-styleable name="SearchFrame">
+    <declare-styleable name="CustomFrame">
         <attr name="exampleString" format="string" />
         <attr name="exampleDimension" format="dimension" />
         <attr name="exampleColor" format="color" />
         <attr name="exampleDrawable" format="color|reference" />
     </declare-styleable>
+    <!--<color name="exampleColor">#882200</color>-->
+    <!--<string name="exampleString">搜索Frame</string>-->
+
 </resources>

@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe.view;
+package com.by5388.xw.searchframe;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,9 +13,11 @@ import android.view.View;
 import com.by5388.xw.searchframe.R;
 
 /**
- * TODO: document your custom view class.
+ * @author xw
+ * @date 20181107
+ * .
  */
-public class SearchFrame extends View {
+public class CustomFrame extends View {
     private String mExampleString; // TODO: use a default from R.string...
     private int mExampleColor = Color.RED; // TODO: use a default from R.color...
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
@@ -25,17 +27,17 @@ public class SearchFrame extends View {
     private float mTextWidth;
     private float mTextHeight;
 
-    public SearchFrame(Context context) {
+    public CustomFrame(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public SearchFrame(Context context, AttributeSet attrs) {
+    public CustomFrame(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public SearchFrame(Context context, AttributeSet attrs, int defStyle) {
+    public CustomFrame(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
@@ -43,22 +45,22 @@ public class SearchFrame extends View {
     private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.SearchFrame, defStyle, 0);
+                attrs, R.styleable.CustomFrame, defStyle, 0);
 
         mExampleString = a.getString(
-                R.styleable.SearchFrame_exampleString);
+                R.styleable.CustomFrame_exampleString);
         mExampleColor = a.getColor(
-                R.styleable.SearchFrame_exampleColor,
+                R.styleable.CustomFrame_exampleColor,
                 mExampleColor);
         // Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
         // values that should fall on pixel boundaries.
         mExampleDimension = a.getDimension(
-                R.styleable.SearchFrame_exampleDimension,
+                R.styleable.CustomFrame_exampleDimension,
                 mExampleDimension);
 
-        if (a.hasValue(R.styleable.SearchFrame_exampleDrawable)) {
+        if (a.hasValue(R.styleable.CustomFrame_exampleDrawable)) {
             mExampleDrawable = a.getDrawable(
-                    R.styleable.SearchFrame_exampleDrawable);
+                    R.styleable.CustomFrame_exampleDrawable);
             mExampleDrawable.setCallback(this);
         }
 
