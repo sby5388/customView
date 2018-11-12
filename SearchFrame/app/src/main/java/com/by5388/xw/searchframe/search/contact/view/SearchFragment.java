@@ -1,5 +1,6 @@
-package com.by5388.xw.searchframe.view;
+package com.by5388.xw.searchframe.search.contact.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +17,8 @@ import android.widget.Toast;
 
 import com.by5388.xw.searchframe.LinkMan;
 import com.by5388.xw.searchframe.R;
-import com.by5388.xw.searchframe.presenter.ISearchPresenter;
-import com.by5388.xw.searchframe.presenter.SearchPresenter;
+import com.by5388.xw.searchframe.search.contact.presenter.ISearchPresenter;
+import com.by5388.xw.searchframe.search.contact.presenter.SearchPresenter;
 
 import java.util.List;
 import java.util.Map;
@@ -93,7 +94,12 @@ public class SearchFragment extends ListFragment implements ISearchView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_view, container, false);
+        initView(view);
         return view;
+    }
+
+    private void initView(View view) {
+
     }
 
 
@@ -104,13 +110,24 @@ public class SearchFragment extends ListFragment implements ISearchView {
     }
 
     @Override
-    public void queryContact(String queryStr, OnListItemClickListener mClickListener) {
-        this.mClickListener = mClickListener;
+    public void queryContact(String queryStr) {
         presenter.fetchQuery(queryStr);
     }
 
     @Override
     public void notifyListAdapter2(List<LinkMan> list) {
         // TODO: 2018/11/7
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnListItemClickListener) {
+            this.mClickListener = (OnListItemClickListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListItemClickListener");
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe.model;
+package com.by5388.xw.searchframe.search.contact.model;
 
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -7,7 +7,7 @@ import android.util.Log;
 import com.by5388.xw.searchframe.App;
 import com.by5388.xw.searchframe.LinkMan;
 import com.by5388.xw.searchframe.R;
-import com.by5388.xw.searchframe.presenter.OnContactQueryListener;
+import com.by5388.xw.searchframe.search.contact.presenter.OnContactQueryListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;

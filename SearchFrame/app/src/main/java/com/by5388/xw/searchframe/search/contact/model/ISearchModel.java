@@ -1,6 +1,6 @@
-package com.by5388.xw.searchframe.model;
+package com.by5388.xw.searchframe.search.contact.model;
 
-import com.by5388.xw.searchframe.presenter.OnContactQueryListener;
+import com.by5388.xw.searchframe.search.contact.presenter.OnContactQueryListener;
 
 /**
  * @author by5388  on 2018/11/7.

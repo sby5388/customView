@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe;
+package com.by5388.xw.searchframe.search.contact;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,11 +10,13 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.by5388.xw.searchframe.view.OnListItemClickListener;
-import com.by5388.xw.searchframe.view.SearchFragment;
-import com.by5388.xw.searchframe.view.SearchLinkManFragment;
+import com.by5388.xw.searchframe.R;
+import com.by5388.xw.searchframe.utils.PhoneNumberFormatter;
+import com.by5388.xw.searchframe.search.contact.view.OnListItemClickListener;
+import com.by5388.xw.searchframe.search.contact.view.SearchLinkManFragment;
 
 /**
  * @author by5388
@@ -23,7 +25,9 @@ import com.by5388.xw.searchframe.view.SearchLinkManFragment;
 public class QueryContactsActivity extends AppCompatActivity
         implements TextWatcher, OnListItemClickListener {
 
-    SearchLinkManFragment view;
+    SearchLinkManFragment fragment;
+    EditText editText;
+    TextView showNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class QueryContactsActivity extends AppCompatActivity
     }
 
     private void initData() {
-        view = SearchLinkManFragment.newInstance();
+        fragment = SearchLinkManFragment.newInstance();
         // TODO: 2018/11/7
     }
 
@@ -43,15 +47,15 @@ public class QueryContactsActivity extends AppCompatActivity
         // TODO: 2018/11/7
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, view);
+        fragmentTransaction.add(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
 
     private void initView() {
         // TODO: 2018/11/7
-        EditText editText = findViewById(R.id.edit_query);
+        editText = findViewById(R.id.edit_query);
         editText.addTextChangedListener(this);
-
+        showNumber = findViewById(R.id.show_number);
     }
 
 
@@ -65,7 +69,9 @@ public class QueryContactsActivity extends AppCompatActivity
         if (TextUtils.isEmpty(s)) {
             return;
         }
-        view.queryContact(s.toString(), this);
+        fragment.queryContact(s.toString());
+//        PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(this, showNumber);
+        PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(this, showNumber);
     }
 
     @Override

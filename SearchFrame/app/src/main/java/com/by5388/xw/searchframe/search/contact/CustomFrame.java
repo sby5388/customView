@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe;
+package com.by5388.xw.searchframe.search.contact;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -122,7 +122,7 @@ public class CustomFrame extends View {
     }
 
     /**
-     * Sets the view's example string attribute value. In the example view, this string
+     * Sets the fragment's example string attribute value. In the example fragment, this string
      * is the text to draw.
      *
      * @param exampleString The example string attribute value to use.
@@ -142,7 +142,7 @@ public class CustomFrame extends View {
     }
 
     /**
-     * Sets the view's example color attribute value. In the example view, this color
+     * Sets the fragment's example color attribute value. In the example fragment, this color
      * is the font color.
      *
      * @param exampleColor The example color attribute value to use.
@@ -162,7 +162,7 @@ public class CustomFrame extends View {
     }
 
     /**
-     * Sets the view's example dimension attribute value. In the example view, this dimension
+     * Sets the fragment's example dimension attribute value. In the example fragment, this dimension
      * is the font size.
      *
      * @param exampleDimension The example dimension attribute value to use.
@@ -182,7 +182,7 @@ public class CustomFrame extends View {
     }
 
     /**
-     * Sets the view's example drawable attribute value. In the example view, this drawable is
+     * Sets the fragment's example drawable attribute value. In the example fragment, this drawable is
      * drawn above the text.
      *
      * @param exampleDrawable The example drawable attribute value to use.

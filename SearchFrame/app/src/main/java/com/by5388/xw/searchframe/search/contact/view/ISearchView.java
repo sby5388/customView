@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe.view;
+package com.by5388.xw.searchframe.search.contact.view;
 
 
 import com.by5388.xw.searchframe.LinkMan;
@@ -27,8 +27,7 @@ public interface ISearchView {
     /**
      * 讲道理 不能这么用的
      *
-     * @param queryStr       关键字
-     * @param mClickListener 回调接口
+     * @param queryStr 关键字
      */
-    void queryContact(String queryStr, OnListItemClickListener mClickListener);
+    void queryContact(String queryStr);
 }

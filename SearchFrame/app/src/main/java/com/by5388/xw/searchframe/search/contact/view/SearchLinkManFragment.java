@@ -1,25 +1,22 @@
-package com.by5388.xw.searchframe.view;
+package com.by5388.xw.searchframe.search.contact.view;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.by5388.xw.searchframe.LinkMan;
 import com.by5388.xw.searchframe.R;
-import com.by5388.xw.searchframe.adapter.LinkManAdapter;
-import com.by5388.xw.searchframe.presenter.ISearchPresenter;
-import com.by5388.xw.searchframe.presenter.SearchPresenter;
+import com.by5388.xw.searchframe.search.contact.adapter.LinkManAdapter;
+import com.by5388.xw.searchframe.search.contact.presenter.ISearchPresenter;
+import com.by5388.xw.searchframe.search.contact.presenter.SearchPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,23 +33,6 @@ public class SearchLinkManFragment extends Fragment implements ISearchView {
     private OnListItemClickListener mClickListener;
     private LinkManAdapter adapter;
     private ListView listView;
-    /**
-     * 没有配置时的回调事件
-     */
-    private OnListItemClickListener defaultListener = new OnListItemClickListener() {
-        @Override
-        public void onListItemClick(String number) {
-            if (TextUtils.isEmpty(number)) {
-                Toast.makeText(getContext(), R.string.empty_number, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            Uri uri = Uri.parse("tel:" + number);
-            intent.setData(uri);
-            startActivity(intent);
-        }
-    };
-
 
     public static SearchLinkManFragment newInstance() {
         SearchLinkManFragment fragment = new SearchLinkManFragment();
@@ -92,11 +72,7 @@ public class SearchLinkManFragment extends Fragment implements ISearchView {
                 if (man == null) {
                     return;
                 }
-                if (mClickListener != null) {
-                    mClickListener.onListItemClick(man.getTelephone());
-                } else {
-                    defaultListener.onListItemClick(man.getTelephone());
-                }
+                mClickListener.onListItemClick(man.getTelephone());
             }
         });
     }
@@ -112,9 +88,7 @@ public class SearchLinkManFragment extends Fragment implements ISearchView {
     }
 
     @Override
-    public void queryContact(String queryStr, OnListItemClickListener mClickListener) {
-        Log.d(TAG, "queryContact: " + queryStr);
-        this.mClickListener = mClickListener;
+    public void queryContact(String queryStr) {
         presenter.fetchQuery(queryStr);
     }
 
@@ -125,7 +99,19 @@ public class SearchLinkManFragment extends Fragment implements ISearchView {
 
     @Override
     public void notifyListAdapter2(List<LinkMan> list) {
-        Log.d(TAG, "notifyListAdapter2: "+list.size());
+        Log.d(TAG, "notifyListAdapter2: " + list.size());
         adapter.setLinkManList(list);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnListItemClickListener) {
+            this.mClickListener = (OnListItemClickListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListItemClickListener");
+        }
+
     }
 }

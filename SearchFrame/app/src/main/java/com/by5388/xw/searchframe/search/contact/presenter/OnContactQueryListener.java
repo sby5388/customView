@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe.presenter;
+package com.by5388.xw.searchframe.search.contact.presenter;
 
 import com.by5388.xw.searchframe.LinkMan;
 

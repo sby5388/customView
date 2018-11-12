@@ -1,11 +1,11 @@
-package com.by5388.xw.searchframe.presenter;
+package com.by5388.xw.searchframe.search.contact.presenter;
 
 import android.util.Log;
 
 import com.by5388.xw.searchframe.LinkMan;
-import com.by5388.xw.searchframe.model.ISearchModel;
-import com.by5388.xw.searchframe.model.SearchModel;
-import com.by5388.xw.searchframe.view.ISearchView;
+import com.by5388.xw.searchframe.search.contact.model.ISearchModel;
+import com.by5388.xw.searchframe.search.contact.model.SearchModel;
+import com.by5388.xw.searchframe.search.contact.view.ISearchView;
 
 import java.util.List;
 import java.util.Map;

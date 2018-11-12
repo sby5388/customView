@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe.adapter;
+package com.by5388.xw.searchframe.search.contact.adapter;
 
 import android.content.Context;
 import android.util.Log;

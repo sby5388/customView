@@ -1,4 +1,4 @@
-package com.by5388.xw.searchframe.view;
+package com.by5388.xw.searchframe.search.contact.view;
 
 /**
  * @author by5388  on 2018/11/7.

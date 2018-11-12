@@ -1,6 +1,6 @@
-package com.by5388.xw.searchframe.presenter;
+package com.by5388.xw.searchframe.search.contact.presenter;
 
-import com.by5388.xw.searchframe.view.ISearchView;
+import com.by5388.xw.searchframe.search.contact.view.ISearchView;
 
 /**
  * @author by5388  on 2018/11/7.
