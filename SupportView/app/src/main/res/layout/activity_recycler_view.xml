@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".recycler.view.RecyclerViewActivity">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/middle_buttons"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/middle_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/bottom_buttons"
+        app:layout_constraintTop_toBottomOf="@id/swipe_refresh_layout">
+
+        <EditText
+            android:id="@+id/editText_number"
+            style="@style/bottom_button"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:text="@string/number_start" />
+
+        <EditText
+            android:id="@+id/editText_page"
+            style="@style/bottom_button"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:text="@string/page_start" />
+
+        <Button
+            android:id="@+id/button_jump"
+            style="@style/bottom_button"
+            android:text="@string/jump" />
+
+        <Button
+            android:id="@+id/button_last_page"
+            style="@style/bottom_button"
+            android:text="@string/last_page" />
+
+        <Button
+            android:id="@+id/button_next_page"
+            style="@style/bottom_button"
+            android:text="@string/next_page" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_buttons">
+
+        <Button
+            android:id="@+id/button_show_listView"
+            style="@style/bottom_button"
+            android:text="@string/listView" />
+
+        <Button
+            android:id="@+id/button_show_gridView"
+            style="@style/bottom_button"
+            android:text="@string/gridView" />
+
+        <Button
+            android:id="@+id/button_show_horizontal"
+            style="@style/bottom_button"
+            android:text="@string/horizontal" />
+
+        <Button
+            android:id="@+id/button_show_waterfall"
+            style="@style/bottom_button"
+            android:text="@string/waterfall" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

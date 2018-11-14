@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.by5388.xw.searchframe.R;
-import com.by5388.xw.searchframe.utils.PhoneNumberFormatter;
 import com.by5388.xw.searchframe.search.contact.view.OnListItemClickListener;
 import com.by5388.xw.searchframe.search.contact.view.SearchLinkManFragment;
+import com.by5388.xw.searchframe.utils.PhoneNumberFormatter;
 
 /**
  * @author by5388
@@ -49,6 +49,7 @@ public class QueryContactsActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+
     }
 
     private void initView() {
@@ -61,22 +62,22 @@ public class QueryContactsActivity extends AppCompatActivity
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        fragment.queryContact("");
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (TextUtils.isEmpty(s)) {
-            return;
-        }
-        fragment.queryContact(s.toString());
-//        PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(this, showNumber);
-        PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(this, showNumber);
+
     }
 
     @Override
     public void afterTextChanged(Editable s) {
         // TODO: 2018/11/7
+        if (TextUtils.isEmpty(s)) {
+            return;
+        }
+        fragment.queryContact(s.toString());
+        PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(this, showNumber);
     }
 
     @Override

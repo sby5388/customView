@@ -115,6 +115,8 @@ public class CallItem {
                 this.iconRes = R.drawable.ic_call_arrow_rejected;
                 break;
             default:
+                this.callTypeString = R.string.incoming_call;
+                this.iconRes = R.drawable.ic_call_arrow_in;
                 break;
         }
     }

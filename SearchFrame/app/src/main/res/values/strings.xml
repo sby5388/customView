@@ -7,4 +7,7 @@
     <string name="outgoing_call">拨出</string>
     <string name="missed_call">未接电话</string>
     <string name="call_rejected">来电已拒绝</string>
+    <string name="refresh">刷新</string>
+    <string name="query_call_history">通话记录</string>
+    <string name="query_link_man">联系人查询</string>
 </resources>

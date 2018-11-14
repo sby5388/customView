@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.by5388.xw.searchframe.call.history.CallHistoryActivity;
 import com.by5388.xw.searchframe.search.contact.QueryContactsActivity;
 
 /**
@@ -27,19 +28,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_query_link_man).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission();
+                checkQueryLinkManPermission();
+            }
+        });
+        findViewById(R.id.button_query_call_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkQueryCallHistoryPermission();
             }
         });
     }
 
-    private void checkPermission() {
+    private void checkQueryCallHistoryPermission() {
+        if (withOutPermission(Manifest.permission.READ_CALL_LOG)) {
+            return;
+        }
+        if (withOutPermission(Manifest.permission.WRITE_CALL_LOG)) {
+            return;
+        }
+
+        startActivity(new Intent(MainActivity.this, CallHistoryActivity.class));
+    }
+
+    private void checkQueryLinkManPermission() {
         if (withOutPermission(Manifest.permission.READ_CONTACTS)) {
             return;
         }
         if (withOutPermission(Manifest.permission.WRITE_CONTACTS)) {
+            return;
+        }
+        if (withOutPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            return;
+        }
+        if (withOutPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             return;
         }
         startActivity(new Intent(MainActivity.this, QueryContactsActivity.class));
@@ -67,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             case REQUEST_PERMISSION_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //授权成功-->跳转页面
-                    checkPermission();
+                    checkQueryLinkManPermission();
                 } else {
                     // 授权失败！
                     Toast.makeText(this, "授权失败！", Toast.LENGTH_LONG).show();

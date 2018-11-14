@@ -22,14 +22,15 @@ import java.util.List;
 public class CallItemAdapter extends BaseAdapter {
     private List<CallItem> callItems;
     private LayoutInflater inflater;
-    Context context;
+    private Context context;
 
     CallItemAdapter(Context context, List<CallItem> callItems) {
+        this.context =context;
         this.inflater = LayoutInflater.from(context);
         this.callItems = callItems;
     }
 
-    public void setCallItems(@NonNull List<CallItem> callItems) {
+    void setCallItems(@NonNull List<CallItem> callItems) {
         this.callItems = callItems;
         notifyDataSetChanged();
     }
