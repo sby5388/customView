@@ -1,6 +1,13 @@
 package com.by5388.xw.supportview.recycler.view;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,12 +20,15 @@ import android.widget.Toast;
 
 import com.by5388.xw.supportview.BaseActivity;
 import com.by5388.xw.supportview.R;
+import com.by5388.xw.supportview.dialog.PictureDialog;
+import com.by5388.xw.supportview.dialog.ShowPicture;
 import com.by5388.xw.supportview.recycler.view.adapter.PictureAdapter;
 import com.by5388.xw.supportview.recycler.view.adapter.PictureItemOnClickListener;
 import com.by5388.xw.supportview.recycler.view.bean.PictureBean;
 import com.by5388.xw.supportview.recycler.view.presenter.IPicturePresenter;
 import com.by5388.xw.supportview.recycler.view.presenter.PicturePresenter;
 import com.by5388.xw.supportview.recycler.view.view.IPictureView;
+import com.by5388.xw.supportview.download.DownLoadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +39,11 @@ import java.util.List;
  *
  * @author by5388  on 2018/11/13.
  */
-public class RecyclerViewActivity extends BaseActivity implements IPictureView, View.OnClickListener, PictureItemOnClickListener {
+public class RecyclerViewActivity extends BaseActivity
+        implements IPictureView,
+        View.OnClickListener,
+        PictureItemOnClickListener,
+        ShowPicture {
     private EditText editTextNumber, editTextPage;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -43,6 +57,11 @@ public class RecyclerViewActivity extends BaseActivity implements IPictureView, 
     private static final int ACTION_NULL = 0;
     private static final int ACTION_NEXT = 1;
     private static final int ACTION_LAST = 2;
+    private PictureDialog dialog;
+    private int position = 0;
+    private DownLoadTask task;
+    private static final int REQUEST_CODE = 20;
+    String url;
 
     @Override
     protected int getLayoutResID() {
@@ -56,6 +75,7 @@ public class RecyclerViewActivity extends BaseActivity implements IPictureView, 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         gridLayoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         layoutManager = linearLayoutManager;
+        task = DownLoadTask.getInstance();
     }
 
     @Override
@@ -110,7 +130,6 @@ public class RecyclerViewActivity extends BaseActivity implements IPictureView, 
 
     @Override
     public void startQuery() {
-        // TODO: 2018/11/14
         //增加下拉查询的进度条
         swipeRefreshLayout.setRefreshing(true);
 
@@ -118,7 +137,6 @@ public class RecyclerViewActivity extends BaseActivity implements IPictureView, 
 
     @Override
     public void completeQuery() {
-        // TODO: 2018/11/14
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -170,9 +188,87 @@ public class RecyclerViewActivity extends BaseActivity implements IPictureView, 
     }
 
     @Override
-    public void saveBitmap(String url) {
+    public void operateBitmap(String url) {
         // TODO: 2018/11/14 保存图片、下载图片 需要编写一个下载工具，并且在通知栏更新下载进度。
-        // todo -->浏览器的下载功能类似，下载完成时会有新的通知
+        //  -->浏览器的下载功能类似，下载完成时会有新的通知
+        // TODO: 2018/11/15  暂时做个图片放大的Dialog
+//        if (dialog == null) {
+//            dialog = new PictureDialog(this, this, adapter.getItem(0).getUrl());
+//        }
+//        dialog.setUrl(adapter.getItem(position).getUrl()).show();
+        //startActivity(PictureActivity.toPictureActivity(this, url));
+        this.url = url;
+        checkFilePermission();
 
+
+    }
+
+    @Override
+    public String getNext() {
+        position++;
+        if (position >= adapter.getItemCount()) {
+            position = 0;
+        }
+        return adapter.getItem(position).getUrl();
+    }
+
+    @Override
+    public String getLast() {
+        position--;
+        if (position < 0) {
+            position = adapter.getItemCount() - 1;
+        }
+        return adapter.getItem(position).getUrl();
+    }
+
+
+    private void checkFilePermission() {
+        if (lackPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            return;
+        }
+        if (lackPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            return;
+        }
+        task.addTask(url).startTask();
+    }
+
+    /**
+     * 缺乏权限
+     *
+     * @param permission 权限
+     * @return true  缺乏权限
+     */
+    private boolean lackPermission(String permission) {
+        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), permission);
+            intent.setData(uri);
+            startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_CODE);
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //授权成功-->跳转页面
+                    checkFilePermission();
+                } else {
+                    // 授权失败！
+                    Toast.makeText(this, "授权失败！", Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

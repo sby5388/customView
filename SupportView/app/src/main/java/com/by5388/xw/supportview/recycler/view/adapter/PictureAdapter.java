@@ -38,6 +38,13 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureH
         this.listener = listener;
     }
 
+    public PictureBean getItem(int position) {
+        if (position >= getItemCount()) {
+            return null;
+        }
+        return beans.get(position);
+    }
+
     public void setBeans(List<PictureBean> beans) {
         this.beans = beans;
         this.notifyDataSetChanged();
@@ -54,12 +61,12 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureH
     public void onBindViewHolder(@NonNull PictureHolder pictureHolder, int position) {
         // TODO: 2018/11/13  使用图片加载工具把图片加载到imageView之中
         final PictureBean bean = beans.get(position);
-        //Fixme item的大小不合适
+        //todo item的大小不合适
         Glide.with(context).load(bean.getUrl()).into(pictureHolder.imageView);
         pictureHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.saveBitmap(bean.getUrl());
+                listener.operateBitmap(bean.getUrl());
             }
         });
         pictureHolder.textView.setText(bean.getDesc());

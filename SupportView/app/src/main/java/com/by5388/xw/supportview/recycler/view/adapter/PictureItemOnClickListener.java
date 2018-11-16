@@ -11,5 +11,5 @@ public interface PictureItemOnClickListener {
      *
      * @param url 图片链接
      */
-    void saveBitmap(String url);
+    void operateBitmap(String url);
 }

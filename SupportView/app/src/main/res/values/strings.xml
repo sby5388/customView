@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">support.view</string>
+    <string name="app_name"><![CDATA[support.view]]></string>
     <string name="listView">listView</string>
     <string name="gridView">gridView</string>
     <string name="horizontal"><![CDATA[横向->]]></string>
@@ -11,4 +11,10 @@
     <string name="last_page">上一页</string>
     <string name="next_page">下一页</string>
     <string name="error_input">错误输入</string>
+    <string name="title_dialog">showPicture</string>
+    <string name="last_picture">上一张</string>
+    <string name="dismiss_picture">关闭</string>
+    <string name="next_picture">下一张</string>
+    <string name="app_test_">下载测试</string>
+    <string name="down_load">下载文件</string>
 </resources>
